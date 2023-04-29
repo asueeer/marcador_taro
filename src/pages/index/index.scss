@@ -1,0 +1,49 @@
+.index {
+  width: 100vw;
+  height: 100vh;
+}
+
+.title {
+  width: 200pt;
+  height: 100pt;
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.start-button {
+  height: 42pt;
+  width: 84pt;
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.start-button:active {
+  filter: brightness(0.8);
+}
+
+.avatar {
+  width: 42pt;
+  height: 42pt;
+}
+
+.invite-button {
+
+}
+
+.invite-button:active {
+  background-color: #FFF8DC;
+}
+
+.player-list {
+  width: 84vw;
+  position: absolute;
+  top: 30vh;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 7vw;
+  margin-right: 7vw;
+}
