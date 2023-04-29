@@ -1,8 +1,9 @@
-
-import { useLaunch } from '@tarojs/taro'
+import Taro, {useLaunch} from '@tarojs/taro'
 import './app.scss'
+import {BaseUrl} from "./util/const";
+import {KVProvider} from "./context/kv";
 
-function App({ children }) {
+function App({children}) {
 
 
   useLaunch(() => {
@@ -10,7 +11,11 @@ function App({ children }) {
   })
 
   // children 是将要会渲染的页面
-  return children
+  return (
+    <KVProvider>
+      {children}
+    </KVProvider>
+  )
 }
 
 export default App

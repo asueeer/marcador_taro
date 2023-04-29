@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e4902ae-5344-43d8-b574-710925a286b9" name="Changes" comment="" />
+    <list default="true" id="2e4902ae-5344-43d8-b574-710925a286b9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/context/kv.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/util/api.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/index/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/index/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index/index.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/const.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/const.jsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +25,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2P599oSWMUWM71PPO1a5tD0LO8m" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -32,6 +41,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -51,7 +61,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1682735926948</updated>
-      <workItem from="1682735928003" duration="8266000" />
+      <workItem from="1682735928003" duration="23615000" />
     </task>
     <servers />
   </component>

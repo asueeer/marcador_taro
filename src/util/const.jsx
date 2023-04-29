@@ -4,6 +4,9 @@ export const GlobalConstStartButton = 'https://diz.deniffer.com/images/202304/ct
 
 export const GlobalConstInviteButton = 'https://diz.deniffer.com/images/202304/player_invitation.png'
 
+export const BaseUrl = 'https://nancy.asueeer.com/marcador'
+
+
 export const URL = (image) => {
   return `url(${image})`
 }
