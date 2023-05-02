@@ -1,8 +1,7 @@
-import {View, Text, Image, Button} from '@tarojs/components'
+import {View, Image} from '@tarojs/components'
 import Taro, {useLoad} from '@tarojs/taro'
 import './index.scss'
 import {
-  BaseUrl,
   GlobalConstBackgroundImage,
   GlobalConstInviteButton,
   GlobalConstStartButton,
@@ -11,7 +10,7 @@ import {
 } from "../../util/const";
 import {useContext} from "react";
 import {GlobalKeyRoomId, GlobalKeyRoomState, GlobalKeyToken, GlobalKeyUserInfo, KVContext} from "../../context/kv";
-import {api_login, api_new_room, api_query_room, api_set_token} from "../../util/api";
+import {api_login, api_new_room, api_query_room, api_set_token, api_start_game} from "../../util/api";
 
 const PlayerList = () => {
   const {store} = useContext(KVContext)
@@ -93,31 +92,34 @@ export default function Index() {
     })
   }
 
-  const timely_update_room_state = () => {
-    setTimeout(() => {
-      api_query_room(store[GlobalKeyRoomId], (r) => {
-        if (r.data.code === 0) {
-          actions.set(GlobalKeyRoomState, r.data.room)
-        }
-      })
-      timely_update_room_state()
-    }, 2000)
-  }
-
   useLoad(() => {
     console.log('Page loaded.')
     try_login(null)
     console.log("user login done.")
-    timely_update_room_state()
+    actions.timely_update_room_state()
   })
 
   return (
     <View className='index' style={
       {backgroundImage: URL(GlobalConstBackgroundImage)}
-    }>
+    }
+    >
       <Image className='title' src={GlobalConstTitleImage}/>
       <PlayerList></PlayerList>
-      <View>
+      <View onClick={() => {
+        api_start_game(store[GlobalKeyRoomId], r => {
+          if (r.data.code !== 0) {
+            console.log(r.data.msg)
+            return
+          }
+          Taro.navigateTo({
+            url: '/pages/start/index'
+          }).then(r => {
+            console.log(r)
+          });
+        })
+      }}
+      >
         <Image className='start-button' src={GlobalConstStartButton}/>
       </View>
     </View>

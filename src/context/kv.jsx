@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {api_query_room} from "../util/api";
 
 const react = require("react");
 
@@ -9,6 +10,8 @@ export const GlobalKeyToken = "token"
 export const GlobalKeyRoomId = "room_id"
 
 export const GlobalKeyRoomState = "room_state"
+
+export const GlobalFuncUpdateRoomState = "timely_update_room_state"
 
 export const KVContext = react.createContext(null)
 
@@ -41,9 +44,20 @@ export const KVProvider = (props) => {
     store[key] = val
     setStore({...store})
   }
+  const timely_update_room_state = () => {
+    setTimeout(() => {
+      api_query_room(store[GlobalKeyRoomId], (r) => {
+        if (r.data.code === 0) {
+          actions.set(GlobalKeyRoomState, r.data.room)
+        }
+      })
+      timely_update_room_state()
+    }, 2000)
+  }
 
   const [actions] = useState({
-    set: set
+    set: set,
+    timely_update_room_state: timely_update_room_state,
   });
 
 

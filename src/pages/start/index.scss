@@ -1,0 +1,85 @@
+.index {
+  width: 100vw;
+  height: 100vh;
+}
+
+.player-frame {
+  width: 42pt;
+  height: 56pt;
+}
+
+.avatar {
+  width: 37pt;
+  height: 37pt;
+  margin: 3pt 2pt;
+}
+
+.player-frame-score {
+  position: relative;
+  bottom: 7pt;
+  left: 5pt;
+}
+
+.players {
+  position: absolute;
+  top: 2vh;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 7vw;
+  margin-right: 7vw;
+  width: 84vw;
+}
+
+.playground {
+  position: absolute;
+  top: 18vh;
+  margin-left: 5vw;
+  width: 90vw;
+  height: 90vw;
+}
+
+
+.numbers-row {
+  position: relative;
+  display: flex;
+  gap: 6pt;
+  margin-left: 5pt;
+}
+
+.numbers-row1 {
+  margin-top: 5pt;
+}
+
+
+.numbers-row2 {
+  margin-top: 5pt;
+}
+
+.numbers-row3 {
+  position: relative;
+  top: 5pt;
+}
+
+.numbers-row4 {
+  position: relative;
+  top: 8pt;
+}
+
+.number {
+  height: 44pt;
+  width: 44pt;
+  font-size: 28pt;
+  text-align: center;
+  position: relative;
+  top: 3pt;
+}
+
+.number-normal {
+  background-size: 100%;
+  background-image: url('https://diz.deniffer.com/images/202304/number_normal.png');
+}
+
+.number-selected {
+  background-size: 100%;
+  background-image: url('https://diz.deniffer.com/images/202304/number_a_selected.png');
+}

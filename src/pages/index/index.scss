@@ -25,7 +25,7 @@
   filter: brightness(0.8);
 
 }
-
+// fixme 这里和start页面的样式重复了
 .avatar {
   width: 42pt;
   height: 42pt;
@@ -40,11 +40,11 @@
 }
 
 .player-list {
-  width: 84vw;
   position: absolute;
   top: 30vh;
   display: flex;
   justify-content: space-between;
   margin-left: 7vw;
   margin-right: 7vw;
+  width: 84vw;
 }
