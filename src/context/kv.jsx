@@ -11,8 +11,6 @@ export const GlobalKeyRoomId = "room_id"
 
 export const GlobalKeyRoomState = "room_state"
 
-export const GlobalFuncUpdateRoomState = "timely_update_room_state"
-
 export const KVContext = react.createContext(null)
 
 let initialized = false
@@ -55,9 +53,24 @@ export const KVProvider = (props) => {
     }, 2000)
   }
 
+  const my_team = () => {
+    const players = store[GlobalKeyRoomState]?.players
+    if (players?.length === 0) {
+      return null
+    }
+    const me = store[GlobalKeyUserInfo]
+    for (let i = 0; i < players.length; i++) {
+      if (me.user_id === players[i].user_id) {
+        return players[i].team
+      }
+    }
+    return null
+  }
+
   const [actions] = useState({
     set: set,
     timely_update_room_state: timely_update_room_state,
+    my_team: my_team
   });
 
 

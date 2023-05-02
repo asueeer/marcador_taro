@@ -1,16 +1,19 @@
 import {View, Image, Text} from '@tarojs/components'
-import {useLoad} from '@tarojs/taro'
+import Taro, {useLoad} from '@tarojs/taro'
 import './index.scss'
 import {
-  GlobalConstBackgroundImage, GlobalConstPlayerAvatarWithScore, GlobalConstPlayground, URL
+  GlobalConstBackgroundImage, GlobalConstPlayerAvatarWithScore, GlobalConstPlayground, GlobalConstWaitForOthers, URL
 } from "../../util/const";
-import {GlobalKeyRoomState, KVContext} from "../../context/kv";
+import {GlobalKeyRoomState, GlobalKeyUserInfo, KVContext} from "../../context/kv";
 // eslint-disable-next-line import/first
 import {useContext} from "react";
+import {api_choose_number} from "../../util/api";
 
 export default function Start() {
   const {store, actions} = useContext(KVContext)
   const room = store[GlobalKeyRoomState]
+  const user = store[GlobalKeyUserInfo]
+  const my_team = actions.my_team()
   const player_frame = (player) => {
     return (<View className='player-frame' style={{
       backgroundImage: URL(GlobalConstPlayerAvatarWithScore), backgroundSize: 'cover',
@@ -22,9 +25,50 @@ export default function Start() {
     </View>)
   }
 
+  // 如果是公布结果，则跳转到公布结果页
+  if (room.state === 'show_result') {
+    Taro.navigateTo({
+      url: '/pages/start/index'
+    }).then(r => {
+      console.log(r)
+    });
+  }
+
   useLoad(() => {
     actions.timely_update_room_state()
   })
+
+  const node_color_style = (node) => {
+    let style = 'number'
+    if (my_team === "A") {
+      if (node.color_show_a === 'grey') {
+        style += ' number-normal'
+      } else {
+        style += ' number-selected'
+      }
+    } else {
+      if (node.color_show_b === "grey") {
+        style += ' number-normal'
+      } else {
+        style += ' number-selected-by-b'
+      }
+    }
+    return style
+  }
+
+  const chosen = () => {
+    const grid = room?.grid
+    for (let i = 0; i < grid?.length; i++) {
+      if (grid[i].choose_by_a_player_id === user.user_id) {
+        return true
+      }
+      if (grid[i].choose_by_b_player_id === user.user_id) {
+        return true
+      }
+    }
+    return false
+  }
+
 
   const render_number = (index) => {
     const grid_node = room?.grid[index]
@@ -32,16 +76,21 @@ export default function Start() {
     if (grid_node?.value === undefined || grid_node?.value === -1) {
       return null
     }
-    let style = 'number'
-    if (!grid_node?.hit) {
-      style += ' number-normal'
-    } else {
-      style += ' number-selected'
-    }
+
+
+    // if (!grid_node?.hit) {
+    //   style += ' number-normal'
+    // } else {
+    //   style += ' number-selected'
+    // }
 
     return (
-      <View className={style} onClick={()=>{
-        console.log("choose!")
+      <View className={node_color_style(grid_node)} onClick={() => {
+        api_choose_number(room.room_id, room.state_id, index, (r) => {
+          if (r.data.code === 0) {
+            actions.set(GlobalKeyRoomState, r.data.room)
+          }
+        })
       }}
       >
         {grid_node?.value}
@@ -87,6 +136,13 @@ export default function Start() {
         {render_number(15)}
       </View>
     </View>
+
+    <Image src={GlobalConstWaitForOthers} style={{
+      width: "100vw",
+      height: "100vh",
+      marginTop: "5vh",
+      display: chosen() ? "" : "none",
+    }}></Image>
 
   </View>)
 }

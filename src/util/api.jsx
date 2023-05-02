@@ -72,3 +72,21 @@ export const api_start_game = (room_id, callback) => {
     callback(r)
   })
 }
+
+export const api_choose_number = (room_id, state_id, index, callback) => {
+  Taro.request({
+    method: "POST",
+    url: BaseUrl + '/choose_number',
+    data: {
+      room_id: `${room_id}`,
+      state_id: state_id,
+      index: index,
+    },
+    header: {
+      'content-type': 'application/json',
+      'token': token
+    },
+  }).then((r) => {
+    callback(r)
+  })
+}

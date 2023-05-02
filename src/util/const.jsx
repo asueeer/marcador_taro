@@ -7,6 +7,8 @@ export const GlobalConstInviteButton = 'https://diz.deniffer.com/images/202304/p
 export const GlobalConstPlayerAvatarWithScore = 'https://diz.deniffer.com/images/202304/player_avatar_frame_with_score.png'
 
 export const GlobalConstPlayground = 'https://diz.deniffer.com/images/202304/bg_frame.png'
+
+export const GlobalConstWaitForOthers = 'https://diz.deniffer.com/images/202304/cta_waiting_for_others.png'
 export const BaseUrl = 'https://nancy.asueeer.com/marcador'
 
 
