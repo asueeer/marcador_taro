@@ -1,6 +1,5 @@
-import Taro, {useLaunch} from '@tarojs/taro'
+import  {useLaunch} from '@tarojs/taro'
 import './app.scss'
-import {BaseUrl} from "./util/const";
 import {KVProvider} from "./context/kv";
 
 function App({children}) {

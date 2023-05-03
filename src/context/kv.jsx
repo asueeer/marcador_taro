@@ -11,6 +11,8 @@ export const GlobalKeyRoomId = "room_id"
 
 export const GlobalKeyRoomState = "room_state"
 
+export const GlobalKeyPlayers = "players"
+
 export const KVContext = react.createContext(null)
 
 let initialized = false
@@ -25,8 +27,9 @@ function initialize_kv_state() {
   // todo 可在此处进行全局状态的初始化
   kv_state[GlobalKeyUserInfo] = null
   kv_state[GlobalKeyToken] = null
-  kv_state[GlobalKeyRoomId] = null
+  kv_state[GlobalKeyRoomId] = 0
   kv_state[GlobalKeyRoomState] = null
+  kv_state[GlobalKeyPlayers] = null
 
   // don't change this
   initialized = true
@@ -46,7 +49,8 @@ export const KVProvider = (props) => {
     setTimeout(() => {
       api_query_room(store[GlobalKeyRoomId], (r) => {
         if (r.data.code === 0) {
-          actions.set(GlobalKeyRoomState, r.data.room)
+          actions.set(GlobalKeyRoomState, {...r.data.room})
+          actions.set(GlobalKeyPlayers, r.data.room?.players)
         }
       })
       timely_update_room_state()
@@ -60,7 +64,7 @@ export const KVProvider = (props) => {
     }
     const me = store[GlobalKeyUserInfo]
     for (let i = 0; i < players.length; i++) {
-      if (me.user_id === players[i].user_id) {
+      if (me?.user_id === players[i]?.user_id) {
         return players[i].team
       }
     }

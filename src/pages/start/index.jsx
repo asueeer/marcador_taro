@@ -2,59 +2,51 @@ import {View, Image, Text} from '@tarojs/components'
 import Taro, {useLoad} from '@tarojs/taro'
 import './index.scss'
 import {
-  GlobalConstBackgroundImage, GlobalConstPlayerAvatarWithScore, GlobalConstPlayground, GlobalConstWaitForOthers, URL
+  GlobalConstBackgroundImage,
+  GlobalConstPlayerAvatarWithScore,
+  GlobalConstPlayground,
+  GlobalConstWaitForOthers,
+  node_color_style,
+  URL
 } from "../../util/const";
 import {GlobalKeyRoomState, GlobalKeyUserInfo, KVContext} from "../../context/kv";
 // eslint-disable-next-line import/first
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {api_choose_number} from "../../util/api";
+
+export const player_frame = (player) => {
+  return (<View className='player-frame' style={{
+    backgroundImage: URL(GlobalConstPlayerAvatarWithScore), backgroundSize: 'cover',
+  }}
+  >
+    <Image className='avatar' src={player?.head_url}>
+    </Image>
+    <Text className='player-frame-score'>{player?.score}</Text>
+  </View>)
+}
 
 export default function Start() {
   const {store, actions} = useContext(KVContext)
   const room = store[GlobalKeyRoomState]
   const user = store[GlobalKeyUserInfo]
   const my_team = actions.my_team()
-  const player_frame = (player) => {
-    return (<View className='player-frame' style={{
-      backgroundImage: URL(GlobalConstPlayerAvatarWithScore), backgroundSize: 'cover',
-    }}
-    >
-      <Image className='avatar' src={player?.head_url}>
-      </Image>
-      <Text className='player-frame-score'>{player?.score}</Text>
-    </View>)
+  const players = room?.players
+
+
+  for (let i = 0; i < players?.length; i++) {
+    if (players[i]?.team === 'B') {
+      // swap
+      let tmp = players[i]
+      players[i] = players[players.length - 1]
+      players[players.length - 1] = tmp
+    }
   }
 
-  // 如果是公布结果，则跳转到公布结果页
-  if (room.state === 'show_result') {
-    Taro.navigateTo({
-      url: '/pages/start/index'
-    }).then(r => {
-      console.log(r)
-    });
-  }
 
   useLoad(() => {
     actions.timely_update_room_state()
   })
 
-  const node_color_style = (node) => {
-    let style = 'number'
-    if (my_team === "A") {
-      if (node.color_show_a === 'grey') {
-        style += ' number-normal'
-      } else {
-        style += ' number-selected'
-      }
-    } else {
-      if (node.color_show_b === "grey") {
-        style += ' number-normal'
-      } else {
-        style += ' number-selected-by-b'
-      }
-    }
-    return style
-  }
 
   const chosen = () => {
     const grid = room?.grid
@@ -70,22 +62,28 @@ export default function Start() {
   }
 
 
+  // 如果是公布结果，则跳转到公布结果页
+  const [navi, setNavi] = useState(false);
+  if (room.state === 'show_result' && !navi) {
+    setNavi(true);
+    Taro.navigateTo({
+      url: '/pages/result/index'
+    }).then(() => {
+    })
+  }
+  if (room.state === 'playing' && navi) {
+    setNavi(false)
+  }
+
   const render_number = (index) => {
     const grid_node = room?.grid[index]
 
     if (grid_node?.value === undefined || grid_node?.value === -1) {
-      return null
+      return <View className='number'></View>
     }
 
-
-    // if (!grid_node?.hit) {
-    //   style += ' number-normal'
-    // } else {
-    //   style += ' number-selected'
-    // }
-
     return (
-      <View className={node_color_style(grid_node)} onClick={() => {
+      <View className={node_color_style(my_team, grid_node)} onClick={() => {
         api_choose_number(room.room_id, room.state_id, index, (r) => {
           if (r.data.code === 0) {
             actions.set(GlobalKeyRoomState, r.data.room)
@@ -142,7 +140,8 @@ export default function Start() {
       height: "100vh",
       marginTop: "5vh",
       display: chosen() ? "" : "none",
-    }}></Image>
+    }}
+    ></Image>
 
   </View>)
 }

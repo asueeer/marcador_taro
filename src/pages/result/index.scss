@@ -1,0 +1,114 @@
+.index {
+  width: 100vw;
+  height: 100vh;
+}
+
+.players {
+  position: absolute;
+  top: 2vh;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 7vw;
+  margin-right: 7vw;
+  width: 84vw;
+}
+
+.player-frame {
+  width: 42pt;
+  height: 56pt;
+}
+
+.avatar {
+  width: 37pt;
+  height: 37pt;
+  margin: 3pt 2pt;
+}
+
+
+.player-frame-score {
+  position: relative;
+  bottom: 7pt;
+  left: 5pt;
+}
+
+.player-frame-diff {
+  display: block;
+  position: relative;
+  color: #ff0000;
+  font-weight: bold;
+  bottom: 4pt;
+  left: 8pt;
+}
+
+.playground {
+  position: absolute;
+  top: 23vh;
+  margin-left: 5vw;
+  width: 90vw;
+  height: 90vw;
+}
+
+
+.numbers-row {
+  position: relative;
+  display: flex;
+  gap: 6pt;
+  margin-left: 5pt;
+}
+
+.numbers-row1 {
+  margin-top: 5pt;
+}
+
+
+.numbers-row2 {
+  margin-top: 5pt;
+}
+
+.numbers-row3 {
+  position: relative;
+  top: 5pt;
+}
+
+.numbers-row4 {
+  position: relative;
+  top: 8pt;
+}
+
+.number {
+  height: 44pt;
+  width: 44pt;
+  font-size: 28pt;
+  text-align: center;
+  position: relative;
+  top: 3pt;
+}
+
+.number-normal {
+  background-size: 100%;
+  background-image: url('https://diz.deniffer.com/images/202304/number_normal.png');
+}
+
+.number-selected {
+  background-size: 100%;
+  background-image: url('https://diz.deniffer.com/images/202304/number_a_selected.png');
+}
+
+.number-selected-by-b {
+  background-size: 90% auto, 100%;
+  background-image: url('https://diz.deniffer.com/images/202304/round_success.png'),
+  url('https://diz.deniffer.com/images/202304/number_b_selected.png');
+}
+
+.done-button {
+  height: 42pt;
+  width: 84pt;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.done-button:active {
+  filter: brightness(0.8);
+}

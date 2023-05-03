@@ -9,30 +9,37 @@ import {
   URL
 } from "../../util/const";
 import {useContext} from "react";
-import {GlobalKeyRoomId, GlobalKeyRoomState, GlobalKeyToken, GlobalKeyUserInfo, KVContext} from "../../context/kv";
-import {api_login, api_new_room, api_query_room, api_set_token, api_start_game} from "../../util/api";
+import {
+  GlobalKeyPlayers,
+  GlobalKeyRoomId,
+  GlobalKeyRoomState,
+  GlobalKeyToken,
+  GlobalKeyUserInfo,
+  KVContext
+} from "../../context/kv";
+import {api_login, api_new_room, api_set_token, api_start_game} from "../../util/api";
 
 const PlayerList = () => {
   const {store} = useContext(KVContext)
-
-  let players = store[GlobalKeyRoomState]?.players
+  const players = store[GlobalKeyPlayers]
   while (players?.length < 4) {
     players?.push(null)
   }
 
   return (
-    <View className={'player-list'}>
+    <View className='player-list'>
       {
         players?.map((player) => {
           if (player === null) {
             return (
               <Image
-                className={'invite-button avatar'} src={GlobalConstInviteButton}>
+                className='invite-button avatar' src={GlobalConstInviteButton}
+              >
               </Image>
             )
           }
           return (
-            <Image className={'avatar'} src={player.head_url}>
+            <Image className='avatar' src={player.head_url}>
             </Image>
           )
         })
@@ -44,10 +51,19 @@ const PlayerList = () => {
 
 const needToRegisterErrCode = 500
 
+const player_count = (players) => {
+  let cnt = 0
+  for (let i = 0; i < players?.length; i++) {
+    if (players[i] !== null) {
+      cnt++
+    }
+  }
+  return cnt
+}
+
 export default function Index() {
   const {store, actions} = useContext(KVContext)
   const handle_login = (r) => {
-    // console.log(r)
     if (r.data.code === 0) {
       actions.set(GlobalKeyUserInfo, r.data.user)
       actions.set(GlobalKeyToken, r.data.token)
@@ -89,6 +105,7 @@ export default function Index() {
     console.log("try_new_room")
     api_new_room((r) => {
       actions.set(GlobalKeyRoomId, r.data.room_id)
+      actions.set(GlobalKeyRoomState, r.data?.room)
     })
   }
 
@@ -107,6 +124,16 @@ export default function Index() {
       <Image className='title' src={GlobalConstTitleImage}/>
       <PlayerList></PlayerList>
       <View onClick={() => {
+        const player_cnt = player_count(store[GlobalKeyRoomState].players)
+        if (player_cnt <= 1) {
+          Taro.showToast({
+            title: '一个人无法进行游戏',
+            icon: 'none',
+            duration: 2000
+          }).then(() => {
+          });
+          return
+        }
         api_start_game(store[GlobalKeyRoomId], r => {
           if (r.data.code !== 0) {
             console.log(r.data.msg)
