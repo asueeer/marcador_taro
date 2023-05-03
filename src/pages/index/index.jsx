@@ -22,10 +22,11 @@ import {api_login, api_new_room, api_set_token, api_start_game} from "../../util
 const PlayerList = () => {
   const {store} = useContext(KVContext)
   const players = store[GlobalKeyPlayers]
+
   while (players?.length < 4) {
     players?.push(null)
   }
-
+  console.log(players)
   return (
     <View className='player-list'>
       {
@@ -106,6 +107,7 @@ export default function Index() {
     api_new_room((r) => {
       actions.set(GlobalKeyRoomId, r.data.room_id)
       actions.set(GlobalKeyRoomState, r.data?.room)
+      actions.set(GlobalKeyPlayers, r.data?.room?.players)
     })
   }
 

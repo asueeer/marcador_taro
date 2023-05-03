@@ -29,7 +29,7 @@ function initialize_kv_state() {
   kv_state[GlobalKeyToken] = null
   kv_state[GlobalKeyRoomId] = 0
   kv_state[GlobalKeyRoomState] = null
-  kv_state[GlobalKeyPlayers] = null
+  kv_state[GlobalKeyPlayers] = []
 
   // don't change this
   initialized = true

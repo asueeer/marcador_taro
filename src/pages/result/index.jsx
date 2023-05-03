@@ -8,7 +8,8 @@ import {
   URL
 } from "../../util/const";
 import {useContext, useState} from "react";
-import {GlobalKeyRoomState, GlobalKeyUserInfo, KVContext} from "../../context/kv";
+import {GlobalKeyPlayers, GlobalKeyRoomState, GlobalKeyUserInfo, KVContext} from "../../context/kv";
+import {api_continue_game} from "../../util/api";
 
 const player_frame = (player) => {
   const diff = () => {
@@ -118,13 +119,12 @@ export default function Result() {
       </View>
 
       <Image src={GlobalConstDoneButton} className='done-button' onClick={() => {
-        console.log(user?.user_id)
         if (room?.owner_id === user?.user_id) {
-          // api_continue_game(room.room_id, (r) => {
-          //   if (r.data.code === 0) {
-          //
-          //   }
-          // })
+          api_continue_game(room.room_id, (r) => {
+            if (r.data.code === 0) {
+              actions.set(GlobalKeyRoomState, r.data.room)
+            }
+          })
         } else {
           Taro.showToast({
             title: '请等待房主开始下一轮',
