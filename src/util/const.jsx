@@ -14,6 +14,10 @@ export const GlobalConstDoneButton = 'https://diz.deniffer.com/images/202304/cta
 
 export const GlobalConstBlackCircle = 'https://diz.deniffer.com/images/202304/round_success.png'
 
+export const GlobalConstWinner = 'https://diz.deniffer.com/images/202304/winner_crown.png'
+
+export const GlobalConstNewRound = 'https://diz.deniffer.com/images/202304/cta_new_round.png'
+
 export const BaseUrl = 'https://nancy.asueeer.com/marcador'
 
 

@@ -106,3 +106,19 @@ export const api_continue_game = (room_id, callback) => {
     callback(r)
   })
 }
+
+export const api_end_game = (room_id, callback) => {
+  Taro.request({
+    method: "POST",
+    url: BaseUrl + '/end_game',
+    data: {
+      room_id: `${room_id}`,
+    },
+    header: {
+      'content-type': 'application/json',
+      'token': token
+    },
+  }).then((r) => {
+    callback(r)
+  })
+}

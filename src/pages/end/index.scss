@@ -1,8 +1,50 @@
 .index {
   width: 100vw;
   height: 100vh;
+
 }
 
-.player-result {
+.players {
+  display: flex;
+  flex-direction: column;
+  padding-left: 25vw;
+  padding-top: 20vh;
+}
 
+.player-result-card {
+  height: 37pt;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15pt;
+}
+
+.avatar {
+  width: 37pt;
+  height: 37pt;
+
+}
+
+.end-page-player-frame-score {
+  margin-left: 15pt;
+  margin-top: 6pt;
+  line-height: 37pt;
+}
+
+.winner {
+  transform: scale(0.1);
+  position: absolute;
+  top: -15pt;
+  left: -20pt;
+}
+
+.new-round {
+  position: fixed;
+  top: 70vh;
+  left: 30vw;
+  width: 80pt;
+  height: 40pt;
+}
+
+.new-round:active {
+  filter: brightness(0.8);
 }

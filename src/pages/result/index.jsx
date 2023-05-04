@@ -8,7 +8,7 @@ import {
   URL
 } from "../../util/const";
 import {useContext, useState} from "react";
-import {GlobalKeyPlayers, GlobalKeyRoomState, GlobalKeyUserInfo, KVContext} from "../../context/kv";
+import {GlobalKeyRoomState, GlobalKeyUserInfo, KVContext} from "../../context/kv";
 import {api_continue_game} from "../../util/api";
 
 const player_frame = (player) => {
