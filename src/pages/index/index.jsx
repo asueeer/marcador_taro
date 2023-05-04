@@ -26,7 +26,7 @@ const PlayerList = () => {
   while (players?.length < 4) {
     players?.push(null)
   }
-  console.log(players)
+
   return (
     <View className='player-list'>
       {
@@ -106,7 +106,7 @@ export default function Index() {
     console.log("try_new_room")
     api_new_room((r) => {
       actions.set(GlobalKeyRoomId, r.data.room_id)
-      actions.set(GlobalKeyRoomState, r.data?.room)
+      actions.set(GlobalKeyRoomState, {...r.data?.room})
       actions.set(GlobalKeyPlayers, r.data?.room?.players)
     })
   }

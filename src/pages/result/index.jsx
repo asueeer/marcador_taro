@@ -51,9 +51,14 @@ export default function Result() {
       console.log('navi to end')
     }
     if (room.state === 'playing') {
-      console.log("1111")
       Taro.navigateTo({
         url: '/pages/start/index'
+      }).then(() => {
+      })
+    }
+    if (room.state === 'end') {
+      Taro.navigateTo({
+        url: '/pages/end/index'
       }).then(() => {
       })
     }
@@ -124,6 +129,7 @@ export default function Result() {
             if (r.data.code === 0) {
               actions.set(GlobalKeyRoomState, r.data.room)
             }
+
           })
         } else {
           Taro.showToast({
