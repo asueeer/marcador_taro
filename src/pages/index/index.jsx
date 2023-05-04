@@ -64,6 +64,7 @@ const player_count = (players) => {
 
 export default function Index() {
   const {store, actions} = useContext(KVContext)
+  const room = store[GlobalKeyRoomState]
   const handle_login = (r) => {
     if (r.data.code === 0) {
       actions.set(GlobalKeyUserInfo, r.data.user)
@@ -141,11 +142,20 @@ export default function Index() {
             console.log(r.data.msg)
             return
           }
-          Taro.navigateTo({
-            url: '/pages/start/index'
-          }).then(r => {
-            console.log(r)
-          });
+          if (room.state === 'end') {
+            Taro.navigateTo({
+              url: '/pages/end/index'
+            }).then(r => {
+              console.log(r)
+            });
+          } else {
+            Taro.navigateTo({
+              url: '/pages/start/index'
+            }).then(r => {
+              console.log(r)
+            });
+          }
+
         })
       }}
       >
