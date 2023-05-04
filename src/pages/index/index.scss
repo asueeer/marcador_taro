@@ -31,7 +31,11 @@
 }
 
 .invite-button {
-
+  border: none 0;
+  background: none;
+  width: 42pt;
+  height: 42pt;
+  padding: 0;
 }
 
 .invite-button:active {

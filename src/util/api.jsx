@@ -138,3 +138,20 @@ export const api_restart_game = (room_id, callback) => {
     callback(r)
   })
 }
+
+
+export const api_enter_room = (room_id, callback) => {
+  Taro.request({
+    method: "POST",
+    url: BaseUrl + '/enter_room',
+    data: {
+      room_id: `${room_id}`,
+    },
+    header: {
+      'content-type': 'application/json',
+      'token': token
+    },
+  }).then((r) => {
+    callback(r)
+  })
+}

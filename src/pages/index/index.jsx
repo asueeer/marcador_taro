@@ -1,5 +1,5 @@
-import {View, Image} from '@tarojs/components'
-import Taro, {useLoad} from '@tarojs/taro'
+import {View, Image, Button} from '@tarojs/components'
+import Taro, {useLoad, useRouter, useShareAppMessage} from '@tarojs/taro'
 import './index.scss'
 import {
   GlobalConstBackgroundImage,
@@ -17,7 +17,7 @@ import {
   GlobalKeyUserInfo,
   KVContext
 } from "../../context/kv";
-import {api_login, api_new_room, api_set_token, api_start_game} from "../../util/api";
+import {api_enter_room, api_login, api_new_room, api_set_token, api_start_game} from "../../util/api";
 
 const PlayerList = () => {
   const {store} = useContext(KVContext)
@@ -33,10 +33,14 @@ const PlayerList = () => {
         players?.map((player) => {
           if (player === null) {
             return (
-              <Image
-                className='invite-button avatar' src={GlobalConstInviteButton}
-              >
-              </Image>
+              <Button open-type='share' className='invite-button'>
+                <Image
+                  className='invite-button avatar' src={GlobalConstInviteButton}
+                  onClick={() => {
+                  }
+                  }
+                > </Image>
+              </Button>
             )
           }
           return (
@@ -65,12 +69,25 @@ const player_count = (players) => {
 export default function Index() {
   const {store, actions} = useContext(KVContext)
   const room = store[GlobalKeyRoomState]
+  const router = useRouter()
+  const {room_id} = router.params
+
+
   const handle_login = (r) => {
     if (r.data.code === 0) {
       actions.set(GlobalKeyUserInfo, r.data.user)
       actions.set(GlobalKeyToken, r.data.token)
       api_set_token(r.data.token)
-      try_new_room()
+      if (room_id != null) {
+        api_enter_room(room_id, (resp) => {
+          console.log(resp)
+          if (resp.data.code === 0) {
+            actions.set(GlobalKeyRoomId, room_id)
+          }
+        })
+      } else {
+        try_new_room()
+      }
     } else {
       // 用户未注册, 需请求用户的头像和昵称, 然后进行注册
       if (r.data.code === needToRegisterErrCode) {
@@ -122,6 +139,13 @@ export default function Index() {
         actions.update_room_state(store[GlobalKeyRoomId])
       }, 2000)
     }, 2000)
+  })
+
+  useShareAppMessage(() => {
+    return {
+      title: '快来一起和我玩小游戏',
+      path: `/pages/index/index?room_id=${room.room_id}`,
+    }
   })
 
   // 如果房主开始游戏, 则立即进入游戏页面
