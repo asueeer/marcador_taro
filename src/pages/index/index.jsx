@@ -8,7 +8,7 @@ import {
   GlobalConstTitleImage,
   URL
 } from "../../util/const";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {
   GlobalKeyPlayers,
   GlobalKeyRoomId,
@@ -116,8 +116,26 @@ export default function Index() {
     console.log('Page loaded.')
     try_login(null)
     console.log("user login done.")
-    actions.timely_update_room_state()
+
+    setTimeout(() => {
+      setInterval(() => {
+        actions.update_room_state(store[GlobalKeyRoomId])
+      }, 2000)
+    }, 2000)
   })
+
+  // 如果房主开始游戏, 则立即进入游戏页面
+  const [navi, setNavi] = useState(false);
+  if (room?.state === 'playing' && !navi) {
+    setNavi(true);
+    Taro.navigateTo({
+      url: '/pages/start/index'
+    }).then(() => {
+    })
+  }
+  if (room?.state === 'waiting' && navi) {
+    setNavi(false)
+  }
 
   return (
     <View className='index' style={

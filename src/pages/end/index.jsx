@@ -4,7 +4,7 @@ import './index.scss'
 import {GlobalConstBackgroundImage, GlobalConstNewRound, GlobalConstWinner, URL} from "../../util/const";
 import {useContext} from "react";
 import {GlobalKeyRoomState, KVContext} from "../../context/kv";
-import {api_end_game} from "../../util/api";
+import {api_end_game, api_restart_game} from "../../util/api";
 
 const player_result = (player, index) => {
   const avatar = () => {
@@ -68,7 +68,20 @@ export default function End() {
           itemList: ['还和ta玩', '全新一局'],
         }).then((r) => {
           if (r.tapIndex === 0) {
-
+            api_restart_game(room.room_id, (r) => {
+              console.log(r)
+              if (r.data.code === 0) {
+                Taro.navigateTo({
+                  url: '/pages/start/index'
+                })
+              } else {
+                Taro.showToast({
+                  title: r.data.msg,
+                  icon: 'none',
+                  duration: 2000
+                })
+              }
+            })
           }
           if (r.tapIndex === 1) {
             api_end_game(room.room_id, (r) => {

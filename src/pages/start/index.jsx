@@ -9,7 +9,7 @@ import {
   node_color_style,
   URL
 } from "../../util/const";
-import {GlobalKeyRoomState, GlobalKeyUserInfo, KVContext} from "../../context/kv";
+import {GlobalKeyRoomId, GlobalKeyRoomState, GlobalKeyUserInfo, KVContext} from "../../context/kv";
 // eslint-disable-next-line import/first
 import {useContext, useState} from "react";
 import {api_choose_number} from "../../util/api";
@@ -44,7 +44,9 @@ export default function Start() {
 
 
   useLoad(() => {
-    actions.timely_update_room_state()
+    setInterval(() => {
+      actions.update_room_state(store[GlobalKeyRoomId])
+    }, 2000)
   })
 
 

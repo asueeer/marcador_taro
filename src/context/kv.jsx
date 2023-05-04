@@ -45,16 +45,14 @@ export const KVProvider = (props) => {
     store[key] = val
     setStore({...store})
   }
-  const timely_update_room_state = () => {
-    setTimeout(() => {
-      api_query_room(store[GlobalKeyRoomId], (r) => {
-        if (r.data.code === 0) {
-          actions.set(GlobalKeyRoomState, {...r.data.room})
-          actions.set(GlobalKeyPlayers, r.data.room?.players)
-        }
-      })
-      timely_update_room_state()
-    }, 2000)
+  const update_room_state = (room_id) => {
+    api_query_room(room_id, (r) => {
+      if (r.data.code === 0) {
+        actions.set(GlobalKeyRoomId, r.data.room.room_id)
+        actions.set(GlobalKeyRoomState, {...r.data.room})
+        actions.set(GlobalKeyPlayers, r.data.room?.players)
+      }
+    })
   }
 
   const my_team = () => {
@@ -73,7 +71,7 @@ export const KVProvider = (props) => {
 
   const [actions] = useState({
     set: set,
-    timely_update_room_state: timely_update_room_state,
+    update_room_state: update_room_state,
     my_team: my_team
   });
 
