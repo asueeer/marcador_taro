@@ -179,7 +179,7 @@ export default function Index() {
         const player_cnt = player_count(store[GlobalKeyRoomState].players)
         if (player_cnt <= 1) {
           Taro.showToast({
-            title: '一个人无法进行游戏',
+            title: 'oooooooops',
             icon: 'none',
             duration: 2000
           }).then(() => {

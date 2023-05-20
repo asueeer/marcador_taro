@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e4902ae-5344-43d8-b574-710925a286b9" name="Changes" comment="feat: 基本完成逻辑">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/project.config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/end/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/end/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/end/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/end/index.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index/index.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/result/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/result/index.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/start/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/start/index.scss" afterDir="false" />
-    </list>
+    <list default="true" id="2e4902ae-5344-43d8-b574-710925a286b9" name="Changes" comment="调样式" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -76,7 +67,7 @@
       <workItem from="1683092337567" duration="14528000" />
       <workItem from="1683203901726" duration="3233000" />
       <workItem from="1683207144202" duration="4074000" />
-      <workItem from="1684603351895" duration="2112000" />
+      <workItem from="1684603351895" duration="2266000" />
     </task>
     <task id="LOCAL-00001" summary="add new page: start">
       <created>1682788883600</created>
@@ -148,7 +139,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684595860219</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="调样式">
+      <created>1684605607992</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1684605607992</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,6 +171,7 @@
     <MESSAGE value="feat: 完成结束的逻辑" />
     <MESSAGE value="feat: 完成主流程的逻辑" />
     <MESSAGE value="feat: 基本完成逻辑" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 基本完成逻辑" />
+    <MESSAGE value="调样式" />
+    <option name="LAST_COMMIT_MESSAGE" value="调样式" />
   </component>
 </project>
