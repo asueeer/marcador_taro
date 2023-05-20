@@ -32,7 +32,7 @@ export default function End() {
   const room = store[GlobalKeyRoomState]
   const players = []
 
-  for (let i = 0; i < room.players.length; i++) {
+  for (let i = 0; i < room?.players?.length; i++) {
     if (room.players[i] !== null) {
       players.push(room.players[i])
     }
@@ -86,7 +86,7 @@ export default function End() {
           if (r.tapIndex === 1) {
             api_end_game(room.room_id, (r) => {
               console.log(r)
-              Taro.navigateTo({
+              Taro.reLaunch({
                 url: '/pages/index/index'
                 // eslint-disable-next-line no-shadow
               });

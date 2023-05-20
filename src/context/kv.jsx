@@ -48,6 +48,11 @@ export const KVProvider = (props) => {
   const update_room_state = (room_id) => {
     api_query_room(room_id, (r) => {
       if (r.data.code === 0) {
+        if (r.data.room.room_id !== store[GlobalKeyRoomId]) {
+          // 不符合当前状态的不能放
+          console.log(r.data.room.room_id, store[GlobalKeyRoomId])
+          return
+        }
         actions.set(GlobalKeyRoomId, r.data.room.room_id)
         actions.set(GlobalKeyRoomState, {...r.data.room})
         actions.set(GlobalKeyPlayers, r.data.room?.players)

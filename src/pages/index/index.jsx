@@ -17,7 +17,7 @@ import {
   GlobalKeyUserInfo,
   KVContext
 } from "../../context/kv";
-import {api_enter_room, api_login, api_new_room, api_set_token, api_start_game} from "../../util/api";
+import {api_end_game, api_enter_room, api_login, api_new_room, api_set_token, api_start_game} from "../../util/api";
 
 const PlayerList = () => {
   const {store} = useContext(KVContext)
@@ -72,7 +72,6 @@ export default function Index() {
   const router = useRouter()
   const {room_id} = router.params
 
-
   const handle_login = (r) => {
     if (r.data.code === 0) {
       actions.set(GlobalKeyUserInfo, r.data.user)
@@ -81,8 +80,13 @@ export default function Index() {
       if (room_id != null) {
         api_enter_room(room_id, (resp) => {
           console.log(resp)
-          if (resp.data.code === 0) {
+          // 102表示已经在房间里了
+          if (resp.data.code === 0 || resp.data.code === 102) {
             actions.set(GlobalKeyRoomId, room_id)
+            return
+          }
+          if (resp.data.code === 404) {
+            try_new_room()
           }
         })
       } else {
@@ -181,7 +185,12 @@ export default function Index() {
         }
         api_start_game(store[GlobalKeyRoomId], r => {
           if (r.data.code !== 0) {
-            console.log(r.data.msg)
+            Taro.showToast({
+              title: r.data.msg,
+              icon: 'none',
+              duration: 2000
+            }).then(r => {
+            })
             return
           }
           if (room.state === 'end') {

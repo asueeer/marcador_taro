@@ -42,7 +42,6 @@ export default function Start() {
     }
   }
 
-
   useLoad(() => {
     setInterval(() => {
       actions.update_room_state(store[GlobalKeyRoomId])

@@ -9,8 +9,8 @@
       "list": [
         {
           "name": "",
-          "pathName": "pages/end/index",
-          "query": "",
+          "pathName": "pages/index/index",
+          "query": "room_id=1659920523565469696",
           "launchMode": "default",
           "scene": null
         }
