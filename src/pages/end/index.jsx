@@ -9,7 +9,7 @@ import {api_end_game, api_restart_game} from "../../util/api";
 const player_result = (player, index) => {
   const avatar = () => {
     if (index === 0) {
-      return (<View>
+      return (<View className='avatar-winner-container'>
           <Image className='avatar' src={player?.head_url}>
           </Image>
           <Image className='winner' src={GlobalConstWinner}></Image>

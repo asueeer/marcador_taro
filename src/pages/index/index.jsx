@@ -44,8 +44,11 @@ const PlayerList = () => {
             )
           }
           return (
-            <Image className='avatar' src={player.head_url}>
-            </Image>
+            // 这里套一个button只是为了样式能够统一
+            <Button disabled='disabled' className='invite-button'>
+              <Image className='avatar' src={player.head_url}>
+              </Image>
+            </Button>
           )
         })
       }

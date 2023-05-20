@@ -18,10 +18,15 @@
   margin-bottom: 15pt;
 }
 
-.avatar {
-  width: 37pt;
-  height: 37pt;
+.avatar-winner-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
 
+.avatar {
+  width: 42pt;
+  height: 42pt;
 }
 
 .end-page-player-frame-score {
@@ -33,8 +38,6 @@
 .winner {
   transform: scale(0.1);
   position: absolute;
-  top: -15pt;
-  left: -20pt;
 }
 
 .new-round {
